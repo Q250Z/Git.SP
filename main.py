@@ -1,16 +1,23 @@
 
 import os
 
-## Number of days you want to make commits
-for i in range(1,365*2 + 1):
-    d = str(i) + ' day ago'
-    ## Open a text file and modify it
-    with open('bot.txt', 'a') as file:
-        file.write(d)
-    ## Add bot.txt to staging area
-    os.system('git add bot.txt')
-    ## Commit it
-    os.system('git commit --date="' + d + '" -m "first commit"')
+def make_commit(days: int):
+    if days < 1:
 
-## push the commit to github
-os.system('git push -u origin master')
+        return os.system('git push')
+    else:
+        dates = f'{days} days ago'
+
+        with open('data.txt', 'a') as files:
+            files.write(f'{dates}\n')
+
+
+            os.system('git add data.txt')
+
+
+            os.system('git commit --dates="'+dates+'" -m "Frist Commit"')
+
+            return days * make_commit(days-1)
+
+make_commit(365)
+
